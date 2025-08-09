@@ -422,15 +422,30 @@ class TetrisUI:
         color = self.get_color_pair()
         
         # Title
-        self.stdscr.addstr(2, panel_x, "TETRIS", curses.color_pair(color) | curses.A_BOLD)
+        try:
+            self.stdscr.addstr(2, panel_x, "TETRIS", curses.color_pair(color) | curses.A_BOLD)
+        except curses.error:
+            pass
         
         # Score, Level, Lines
-        self.stdscr.addstr(4, panel_x, f"Score: {self.game.score}", curses.color_pair(color))
-        self.stdscr.addstr(5, panel_x, f"Level: {self.game.level}", curses.color_pair(color))
-        self.stdscr.addstr(6, panel_x, f"Lines: {self.game.lines_cleared}", curses.color_pair(color))
+        try:
+            self.stdscr.addstr(4, panel_x, f"Score: {self.game.score}", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(5, panel_x, f"Level: {self.game.level}", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(6, panel_x, f"Lines: {self.game.lines_cleared}", curses.color_pair(color))
+        except curses.error:
+            pass
         
         # Next piece
-        self.stdscr.addstr(8, panel_x, "Next:", curses.color_pair(color))
+        try:
+            self.stdscr.addstr(8, panel_x, "Next:", curses.color_pair(color))
+        except curses.error:
+            pass
         if self.game.next_piece:
             shape = self.game.next_piece.get_current_shape()
             for row_idx, row in enumerate(shape):
@@ -447,24 +462,54 @@ class TetrisUI:
         
         # Controls
         controls_y = 15
-        self.stdscr.addstr(controls_y, panel_x, "Controls:", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 1, panel_x, "Arrow keys: Move", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 2, panel_x, "Up: Rotate", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 3, panel_x, "Space: Hard drop", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 4, panel_x, "P: Pause", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 5, panel_x, "R: Restart", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 6, panel_x, "T: Toggle theme", curses.color_pair(color))
-        self.stdscr.addstr(controls_y + 7, panel_x, "Q: Quit", curses.color_pair(color))
+        try:
+            self.stdscr.addstr(controls_y, panel_x, "Controls:", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 1, panel_x, "Arrow keys: Move", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 2, panel_x, "Up: Rotate", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 3, panel_x, "Space: Hard drop", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 4, panel_x, "P: Pause", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 5, panel_x, "R: Restart", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 6, panel_x, "T: Toggle theme", curses.color_pair(color))
+        except curses.error:
+            pass
+        try:
+            self.stdscr.addstr(controls_y + 7, panel_x, "Q: Quit", curses.color_pair(color))
+        except curses.error:
+            pass
         
         # Theme
         theme_name = "Green" if self.game.theme == ColorTheme.GREEN else "Amber"
-        self.stdscr.addstr(controls_y + 9, panel_x, f"Theme: {theme_name}", curses.color_pair(color))
+        try:
+            self.stdscr.addstr(controls_y + 9, panel_x, f"Theme: {theme_name}", curses.color_pair(color))
+        except curses.error:
+            pass
         
         # Status
-        if self.game.game_over:
-            self.stdscr.addstr(1, panel_x, "GAME OVER", curses.color_pair(color) | curses.A_BOLD)
-        elif self.game.paused:
-            self.stdscr.addstr(1, panel_x, "PAUSED", curses.color_pair(color) | curses.A_BOLD)
+        try:
+            if self.game.game_over:
+                self.stdscr.addstr(1, panel_x, "GAME OVER", curses.color_pair(color) | curses.A_BOLD)
+            elif self.game.paused:
+                self.stdscr.addstr(1, panel_x, "PAUSED", curses.color_pair(color) | curses.A_BOLD)
+        except curses.error:
+            pass
     
     def handle_input(self):
         """Process keyboard input and update game state.
